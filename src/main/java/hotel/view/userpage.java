@@ -4,7 +4,7 @@
  */
 
 package hotel.view;
-
+import hotel.model.Client;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

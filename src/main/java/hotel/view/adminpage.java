@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package hotel.view;
-import hotel.model.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
