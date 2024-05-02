@@ -1,13 +1,12 @@
 package hotel;
-
-import java.util.ArrayList;
-import org.bson.Document;
-
-import hotel.model.*;
+import hotel.model.DatabaseManager;
 public class Main {
 
     public static void main(String[] args) {
+
+
         DatabaseManager.connectDB();
+
  
 
 

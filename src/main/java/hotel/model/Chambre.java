@@ -1,5 +1,4 @@
 package hotel.model;
-
 import org.bson.Document;
 
 enum TypeChambre {

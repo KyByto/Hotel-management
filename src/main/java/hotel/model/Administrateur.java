@@ -1,10 +1,7 @@
 package hotel.model;
 import java.util.ArrayList;
 import java.util.UUID;
-
-
 import org.bson.Document;
-
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 

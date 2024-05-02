@@ -148,7 +148,7 @@ public class interfacetest extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 204, 204));
         jLabel2.setText(" even when you're away from home");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/firstpackage/hotelimage.jpg"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hotelimage.jpg"))); // NOI18N
         jLabel4.setText("jLabel4");
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
