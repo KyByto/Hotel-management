@@ -161,7 +161,7 @@ public static Client client;
 
             },
             new String [] {
-                "Type De Chambre", "Date Debut", "Date Fin" , "état De Votre Réservation"
+                "Type De Chambre", "Date Debut", "Date Fin"
             }
         ) {
             boolean[] canEdit = new boolean [] {
