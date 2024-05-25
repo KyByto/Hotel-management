@@ -56,18 +56,19 @@ public class Administrateur extends utilisateur {
 
         
     }
-public void AccepterUneRéservation(String id) throws userException , Exception {
+public void AccepterUneRéservation(String id , String typeChambre ) throws userException , Exception {
    
-        Document chambreQuery = new Document("disponible", true);
+      /*  Document chambreQuery = new Document("", true);
         Document found = chambres.find(chambreQuery).first();
         
         if(found == null) {
             throw new userException("Pas de chambres disponibles");
-        }
+     
+      } */
         Document query = new Document("idClient", id);
-        Document update = new Document("$set", new Document("estAcceptée", true).append("numeroChambre", found.getInteger("numeroChambre")));
+        Document update = new Document("$set", new Document("estAcceptée", true));
 
-        System.out.println("Numero chambre" + found.getInteger("numeroChambre"));
+       // System.out.println("Numero chambre" + found.getInteger("numeroChambre"));
 
         
         reservations.updateOne(query, update);

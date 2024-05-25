@@ -23,16 +23,19 @@ public class Reservation {
            e.printStackTrace();
        }
     }
-    public static void annuleruneréservation(Client client){
-        try{client.AnnulerRéservation();}
+    public static void annuleruneréservation(Client client , String typeChambre , String dateDebut , String dateFin){
+        try{client.AnnulerRéservation(typeChambre , dateDebut , dateFin);}
         catch(Exception e){
-            
+            System.out.println(e.getMessage());
         }
     }
-    public static void accepteruneréservation(Administrateur administrateur,String id){
-        try{administrateur.AccepterUneRéservation(id);}
+    public static Boolean accepteruneréservation(Administrateur administrateur,String id , String typeChambre ,  String dateDebut , String dateFin){
+        try{administrateur.AccepterUneRéservation(id , typeChambre );
+        return true;
+        }
         catch(Exception e){
-            
+            System.out.println(e.getMessage());
+            return false;
         }
     }
     public static void modifieruneréservation(Client client,String DateDebut,String DateFin , String typeChambre){
@@ -104,6 +107,52 @@ public class Reservation {
             rowData[4] = reservation.getDateFin();
             rowData[5] = reservation.getAccepté() ? "Oui" : "Non";
    rowData[6] = reservation.getIdClient();
+            model.addRow(rowData);
+        }
+               
+      } 
+      catch(Exception error) {
+          System.out.println(error.getMessage());
+          
+      }
+                    return model;
+   
+    }
+      
+       public static javax.swing.table.DefaultTableModel getAllReservations( Client client) {
+   DefaultTableModel model = new DefaultTableModel(
+            new Object[][] {},
+            new String[] {"Type De Chambre" , "Date Debut" , "Date Fin" , "Est Accepté"  }
+        ) {
+
+            boolean[] canEdit = new boolean[] { false, false, false , false , false };
+@Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+                
+                
+                
+                
+                
+                
+            }
+            
+
+            
+            
+           
+       
+        };
+
+        try {
+               ArrayList<Réservation> réservation = client.getAllReservationsClient();
+                 for (Réservation reservation : réservation) {
+            Object[] rowData = new Object[5];
+           
+            rowData[0] = reservation.getTypeChambre();
+            rowData[1] = reservation.getDateDebut();
+            rowData[2] = reservation.getDateFin();
+            rowData[3] = reservation.getAccepté() ? "Oui" : "Non";
             model.addRow(rowData);
         }
                

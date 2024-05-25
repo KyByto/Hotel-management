@@ -156,22 +156,9 @@ public static Client client;
         });
 
         tblresrvation.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
-        tblresrvation.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Type De Chambre", "Date Debut", "Date Fin"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        DefaultTableModel modelRéservation = Reservation.getAllReservations(client);
+        tblresrvation.setModel(modelRéservation
+        );
         jScrollPane1.setViewportView(tblresrvation);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -272,6 +259,8 @@ else {
             jComboBox2.getSelectedItem(),
             formattedDate1,
             formattedDate2,
+            "Non",
+            "Pas Encore Accepté"
 
         });
          Reservation.demanderuneréservation(client , formattedDate1 , formattedDate2 ,  jComboBox2.getSelectedItem().toString());
@@ -293,10 +282,31 @@ else {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
          if (tblresrvation.getSelectedRow()==-1){
-        JOptionPane.showMessageDialog(userpage.this, "select any chambre to delete");
+        JOptionPane.showMessageDialog(userpage.this, "Veuillez Choisissez Une réservation");
         }
-        model1.removeRow(tblresrvation.getSelectedRow());
-        Reservation.annuleruneréservation(client);
+         int row = tblresrvation.getSelectedRow();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+ String dateSelectionee = model1.getValueAt(row , 1).toString();
+            LocalDate date = LocalDate.parse(dateSelectionee, formatter);
+
+ 
+        LocalDate dateActuelle = LocalDate.now();
+         if(date.isBefore(dateActuelle))  {
+                     JOptionPane.showMessageDialog(userpage.this, "Vous pouvez Pas Anuller Une Réservation Aprés La Date De Debut");
+
+         }
+         else {
+         Reservation.annuleruneréservation(
+                 client,
+                 model1.getValueAt(row, 0).toString() , 
+                 model1.getValueAt(row, 1).toString() ,
+                 model1.getValueAt(row, 2).toString()
+                 );
+         
+        model1.removeRow(row);
+        
+        
+         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -314,7 +324,7 @@ String selectedValue = selectedItem.toString();
 if(jDateChooser1.getDate() == null || jDateChooser2.getDate() == null ) {
                         // modifier sans toucher les dates
                                 model1.setValueAt(jComboBox2.getSelectedItem(), tblresrvation.getSelectedRow(), 0);
-       // Reservation.modifieruneréservation(client, selectedValue, selectedValue);
+        Reservation.modifieruneréservation(client, selectedValue);
 
 
 }
@@ -340,8 +350,8 @@ else {
 
                        model1.setValueAt(formattedDate2, tblresrvation.getSelectedRow(), 2);
 
+        Reservation.modifieruneréservation(client , formattedDate1 , formattedDate2 ,  jComboBox2.getSelectedItem().toString());
          
-        Reservation.demanderuneréservation(client , formattedDate1 , formattedDate2 ,  jComboBox2.getSelectedItem().toString());
          
     }
     
@@ -422,5 +432,7 @@ else {
 private static LocalDate convertirEnLocalDate(java.util.Date date) {
         return date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
     }
+
+
 }
 

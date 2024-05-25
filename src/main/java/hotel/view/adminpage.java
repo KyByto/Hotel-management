@@ -357,9 +357,18 @@ javax.swing.table.TableColumn idColumn;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         if (selectedRow != 0) {
-                    model.setValueAt("Oui", selectedRow, 5);  // Mettre à jour la colonne 3 avec "Oui"
         String idClient = model.getValueAt(selectedRow , 6).toString();
-        Reservation.accepteruneréservation(administrateur, idClient);       
+        
+       Boolean res = Reservation.accepteruneréservation(
+                administrateur, idClient ,
+                model.getValueAt(selectedRow, 2).toString()
+                , model.getValueAt(selectedRow , 3).toString(),
+        model.getValueAt(selectedRow , 4).toString()); 
+       if(res) {
+                   model.setValueAt("Oui", selectedRow, 5);  
+
+       }
+// Mettre à jour la colonne 3 avec "Oui"
         } else {
                     JOptionPane.showMessageDialog(null, "Veuillez sélectionner une Réservation d'abord.");
                 }
@@ -370,6 +379,7 @@ javax.swing.table.TableColumn idColumn;
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     if (selectedRow != 0) {
+          Reservation.refuseruneréservation(administrateur, model.getValueAt(selectedRow, 6).toString());
                     model.setValueAt("Non", selectedRow, 5);  // Mettre à jour la colonne 3 avec "Oui"
                 } else {
                     JOptionPane.showMessageDialog(null, "Veuillez sélectionner une Réservation D'abord.");
@@ -440,11 +450,12 @@ else {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-         if (selectedRow != 0) {
-                    model.removeRow(selectedRow); // Mettre à jour la colonne 3 avec "Oui"
+         if (selectedRow != 0 ) {
                             String idClient = model.getValueAt(selectedRow , 6).toString();
 
                     Reservation.supprimerUneReservation(administrateur , idClient );
+                                        model.removeRow(selectedRow); // Mettre à jour la colonne 3 avec "Oui"
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Veuillez sélectionner une ligne d'abord.");
                 }

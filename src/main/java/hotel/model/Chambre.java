@@ -12,7 +12,7 @@ public class Chambre {
     public Chambre( String typeChambre,  String numeroChambre , String étatDeLaChambre) {
         this.numeroChambre = numeroChambre;
         this.typeChambre = TypeChambre.valueOf(typeChambre);
-        this.disponible = étatDeLaChambre == "Réservé" ? true : false;
+        this.disponible = étatDeLaChambre == "Réservé" ? false : true;
     }
     public Chambre(String typeChambre , String numeroChambre , Boolean disponible) {
           this.numeroChambre = numeroChambre;
